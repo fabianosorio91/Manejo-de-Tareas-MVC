@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "8XhpQVh1LZeJqcQ2sGZZAGVqR2+EUU+uh6zGOqTbqUw=",
+  "Hash": "N5ETyGvmNtK8KPtnHrhNLMM7wWFUhFoag3GC7ALPNBY=",
   "Source": "TareasMVC",
   "BasePath": "_content/TareasMVC",
   "Mode": "Default",
@@ -100,6 +100,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\js\\site.js"
+    },
+    {
+      "Identity": "C:\\Users\\fosorio\\Desktop\\Curso Udemy\\Proyectos\\TareasMVC\\TareasMVC\\wwwroot\\js\\utilidades.js",
+      "SourceId": "TareasMVC",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\fosorio\\Desktop\\Curso Udemy\\Proyectos\\TareasMVC\\TareasMVC\\wwwroot\\",
+      "BasePath": "_content/TareasMVC",
+      "RelativePath": "js/utilidades.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\utilidades.js"
     },
     {
       "Identity": "C:\\Users\\fosorio\\Desktop\\Curso Udemy\\Proyectos\\TareasMVC\\TareasMVC\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css",

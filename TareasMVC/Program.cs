@@ -1,18 +1,37 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Localization;
+using Microsoft.AspNetCore.Mvc.Authorization;
+using Microsoft.AspNetCore.Mvc.Filters;
+using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.EntityFrameworkCore;
+using System.Globalization;
 using TareasMVC;
+using TareasMVC.Servicios;
 
 var builder = WebApplication.CreateBuilder(args);
 
+var politicaUsuariosAutenticados = new AuthorizationPolicyBuilder()
+    .RequireAuthenticatedUser()
+    .Build();
+
 // Add services to the container.
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews(opciones =>
+{
+    opciones.Filters.Add(new AuthorizeFilter(politicaUsuariosAutenticados));
+}).AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
+.AddDataAnnotationsLocalization(opciones =>
+{
+    opciones.DataAnnotationLocalizerProvider = (_, factoria) =>
+        factoria.Create(typeof(RecursoCompartido));
+});
 
 builder.Services.AddDbContext<ApplicationDbContext>(opciones => opciones.UseSqlServer("name=DefaultConnection"));
 builder.Services.AddAuthentication();
-builder.Services.AddIdentity<IdentityUser, IdentityRole>(opciones => 
+builder.Services.AddIdentity<IdentityUser, IdentityRole>(opciones =>
 {
-    opciones.SignIn.RequireConfirmedAccount = false;
+    opciones.SignIn.RequireConfirmedAccount = false; //no requiere una cuenta confirmada
 }).AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
 //para trabajar con mis proias vistas
 builder.Services.PostConfigure<CookieAuthenticationOptions>(IdentityConstants.ApplicationScheme, opciones =>
@@ -20,7 +39,20 @@ builder.Services.PostConfigure<CookieAuthenticationOptions>(IdentityConstants.Ap
     opciones.LoginPath = "/usuarios/login";
     opciones.AccessDeniedPath = "/usuario/login";
 });
+
+builder.Services.AddLocalization(opciones =>
+{
+    opciones.ResourcesPath = "Recursos";
+});
 var app = builder.Build();
+//idiomas
+
+app.UseRequestLocalization(opciones =>
+{
+    opciones.DefaultRequestCulture = new RequestCulture("es"); //cultura por defecto
+    opciones.SupportedUICultures = Constantes.CultureUISoportadas.Select(cultura => 
+    new CultureInfo(cultura.Value)).ToList();
+});
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

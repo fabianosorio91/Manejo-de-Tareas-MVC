@@ -1,10 +1,18 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Remove="Recursos\Views\Shared\_TraduccionesJS.en.resx" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Recursos\Views\Shared\_TraduccionesJS.en.resx" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="7.0.0-rc.2.22476.2" />

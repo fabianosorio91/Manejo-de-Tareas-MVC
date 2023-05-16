@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Identity;
+using System.ComponentModel.DataAnnotations;
 
 namespace TareasMVC.Entidades
 {
@@ -11,7 +12,10 @@ namespace TareasMVC.Entidades
         public string Descripcion { get; set; }
         public int Orden { get; set; }
         public DateTime FechaCreacion { get; set; }
-        public List<Paso>Pasos { get; set; } //relacion uno a muchos, una tareas, varios pasos. y un paso una unica tarea
+        //llave foranea
+        public string UsuarioCreacionId { get; set; }
+        public IdentityUser UsuarioCreacion { get; set; }
+        public List<Paso> Pasos { get; set; } //relacion uno a muchos, una tareas, varios pasos. y un paso una unica tarea
     }
 }
 
