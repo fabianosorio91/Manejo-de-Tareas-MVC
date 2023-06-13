@@ -7,6 +7,11 @@
     <WebStackScaffolding_ViewDialogWidth>650</WebStackScaffolding_ViewDialogWidth>
   </PropertyGroup>
   <ItemGroup>
+    <EmbeddedResource Update="Recursos\Views\Home\Index.en.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
     <None Update="Recursos\Views\Shared\_TraduccionesJS.en.resx">
       <SubType>Designer</SubType>
     </None>

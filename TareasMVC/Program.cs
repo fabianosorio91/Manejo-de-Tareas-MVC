@@ -32,9 +32,11 @@ builder.Services.AddAuthentication();
 builder.Services.AddIdentity<IdentityUser, IdentityRole>(opciones =>
 {
     opciones.SignIn.RequireConfirmedAccount = false; //no requiere una cuenta confirmada
-}).AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
+}).AddEntityFrameworkStores<ApplicationDbContext>()
+.AddDefaultTokenProviders();
 //para trabajar con mis proias vistas
-builder.Services.PostConfigure<CookieAuthenticationOptions>(IdentityConstants.ApplicationScheme, opciones =>
+builder.Services.PostConfigure<CookieAuthenticationOptions>(IdentityConstants.ApplicationScheme,
+    opciones =>
 {
     opciones.LoginPath = "/usuarios/login";
     opciones.AccessDeniedPath = "/usuario/login";
@@ -44,13 +46,17 @@ builder.Services.AddLocalization(opciones =>
 {
     opciones.ResourcesPath = "Recursos";
 });
+
+builder.Services.AddTransient<IserviciosUsuarios, ServicioUsuarios>();
+builder.Services.AddAutoMapper(typeof(Program));
+
 var app = builder.Build();
 //idiomas
 
 app.UseRequestLocalization(opciones =>
 {
     opciones.DefaultRequestCulture = new RequestCulture("es"); //cultura por defecto
-    opciones.SupportedUICultures = Constantes.CultureUISoportadas.Select(cultura => 
+    opciones.SupportedUICultures = Constantes.CultureUISoportadas.Select(cultura =>
     new CultureInfo(cultura.Value)).ToList();
 });
 
