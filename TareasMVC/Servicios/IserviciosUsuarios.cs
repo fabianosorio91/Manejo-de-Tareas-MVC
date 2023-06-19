@@ -8,8 +8,8 @@ namespace TareasMVC.Servicios
     }
 
     public class ServicioUsuarios : IserviciosUsuarios
-    {
-        private HttpContext httpContext;
+   {
+       private HttpContext httpContext;
         public ServicioUsuarios(IHttpContextAccessor httpContextAccessor)
         {
             httpContext = httpContextAccessor.HttpContext;
@@ -18,7 +18,8 @@ namespace TareasMVC.Servicios
         {
             if (httpContext.User.Identity.IsAuthenticated)
             {
-                var idClaim = httpContext.User.Claims.Where(x => x.Type == ClaimTypes.NameIdentifier).FirstOrDefault();
+                var idClaim = httpContext.User.Claims
+                    .Where(x => x.Type == ClaimTypes.NameIdentifier).FirstOrDefault();
 
                 return idClaim.Value;
             }
