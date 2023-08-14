@@ -14,7 +14,8 @@
 
 <div id="contenedor-listado-tareas" class="text-center">
     <div id="reordenable" class="text-start" data-bind="foreach: tareas">
-        <div name="tarea" class="border mb-2 p-2" style="cursor: pointer">
+        <div name="tarea" class="border mb-2 p-2" style="cursor: pointer"
+             data-bind="click: manejarClickTarea">
             <div data-bind="text: titulo, hidden: esNuevo" class="fw-bold">
             </div>
 
@@ -36,14 +37,21 @@
 
 </div>
 
+
+<partial name="_ModalEditarTarea" />
+
 @section Scripts{
 
     <script src="~/js/utilidades.js" asp-append-version="true"></script>
     <script src="~/js/tareas.js" asp-append-version="true"></script>
-   
+    <script src="~/js/pasos.js" asp-append-version="true"></script>
+
     <script>
 
         const urlTareas = "/api/tareas";
+
+        const modalEditarTarea = document.getElementById('modal-editar-tarea');
+        const modalEditarTareaBootstrap = new bootstrap.Modal(modalEditarTarea);
 
         function tareaListadoViewModelFn() {
             var self = this;
@@ -59,7 +67,7 @@
             })
         }
 
-        function tareaElementoListadoViewModel({id, titulo}){
+        function tareaElementoListadoViewModel({ id, titulo }) {
             var self = this;
             self.id = ko.observable(id);
             self.titulo = ko.observable(titulo);
@@ -68,12 +76,30 @@
             })
         }
 
+        const tareaEditarVM = {
+            id: 0,
+            titulo: ko.observable(''),
+            descripcion: ko.observable(''),
+            pasos: ko.observableArray([])
+        }
+
         const tareaListadoViewModel = new tareaListadoViewModelFn();
 
-        obtenerTareas();
+        function pasoViewModel({ id, descripcion, realizado, modoEdicion }){
+            var self = this;
+            self.id = ko.observable(id || 0);
+            self.descripcion = ko.observable(descripcion || '');
+            self.realizado = ko.observable(realizado);
+            self.modoEdicion = ko.observable(modoEdicion);
 
-        ko.applyBindings(tareaListadoViewModel, document.getElementById('contenedor-listado-tareas'));
+            self.esNuevo = ko.pureComputed(function (){
+                return self.id() == 0;
+            })
+        }
 
+            obtenerTareas();
 
+            ko.applyBindings(tareaListadoViewModel, document.getElementById('contenedor-listado-tareas'));
+            ko.applyBindings(tareaEditarVM, document.getElementById('modal-editar-tarea'));
     </script>
-}
+} 

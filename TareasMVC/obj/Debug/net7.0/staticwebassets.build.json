@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "sCoF3ug0s8jSv2L+u6xptiQrlyIWWSy76nPJDI/ZEDE=",
+  "Hash": "fpyEOAU2TEQpRUknqrBXOu+8bitZ8PVHu0c5y7CJPXo=",
   "Source": "TareasMVC",
   "BasePath": "_content/TareasMVC",
   "Mode": "Default",
@@ -83,6 +83,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\favicon.ico"
+    },
+    {
+      "Identity": "C:\\Users\\fosorio\\Desktop\\Curso Udemy\\Proyectos\\TareasMVC\\TareasMVC\\wwwroot\\js\\pasos.js",
+      "SourceId": "TareasMVC",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\fosorio\\Desktop\\Curso Udemy\\Proyectos\\TareasMVC\\TareasMVC\\wwwroot\\",
+      "BasePath": "_content/TareasMVC",
+      "RelativePath": "js/pasos.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\pasos.js"
     },
     {
       "Identity": "C:\\Users\\fosorio\\Desktop\\Curso Udemy\\Proyectos\\TareasMVC\\TareasMVC\\wwwroot\\js\\site.js",

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TareasMVC.Entidades;
@@ -37,6 +38,22 @@ namespace TareasMVC.Controllers
             return tareas;
         }
 
+        [HttpGet("{id:int}")]
+        public async Task<ActionResult<Tarea>> Get(int id)
+        {
+            var usuarioId = servicioUsuarios.ObtenerusuarioId();
+
+            var tarea = await context.Tareas.FirstOrDefaultAsync(t => t.Id == id &&
+            t.UsuarioCreacionId == usuarioId);
+
+            if (tarea is null)
+            {
+                return NotFound();
+            }
+
+            return tarea;
+        }
+
         [HttpPost]
         public async Task<ActionResult<Tarea>> Post([FromBody] string titulo)
         {
@@ -64,6 +81,46 @@ namespace TareasMVC.Controllers
 
             return tarea;
         }
+
+        [HttpPut("{id:int}")]
+        public async Task<IActionResult> EditarTarea(int id, [FromBody] TareaEditarDTO tareaEditarDTO)
+        {
+            var usuarioId = servicioUsuarios.ObtenerusuarioId();
+
+            var tarea = await context.Tareas.FirstOrDefaultAsync(t => t.Id == id &&
+            t.UsuarioCreacionId == usuarioId);
+
+            if (tarea is null) 
+            {
+                return NotFound();
+            }
+
+            tarea.Titulo = tareaEditarDTO.Titulo;
+            tarea.Descripcion = tareaEditarDTO.Descripcion; 
+
+            await context.SaveChangesAsync();
+
+            return Ok();
+        }
+
+        [HttpDelete("{id:int}")]
+        public async Task<ActionResult> Delete(int id) 
+        {
+            var usuarioId = servicioUsuarios.ObtenerusuarioId();
+
+            var tarea = await context.Tareas.FirstOrDefaultAsync(t => t.Id == id &&
+            t.UsuarioCreacionId == usuarioId);
+
+            if (tarea is null) 
+            {
+                return NotFound();
+            }
+
+            context.Remove(tarea);
+            await context.SaveChangesAsync();
+            return Ok();
+        }
+
 
         [HttpPost("ordenar")]
         public async Task<IActionResult> Ordenar([FromBody] int[] ids)
